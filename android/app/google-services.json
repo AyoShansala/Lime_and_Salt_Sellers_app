@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "639192348852",
+    "project_id": "lime-and-salt-app",
+    "storage_bucket": "lime-and-salt-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639192348852:android:34678dcd568bc0554dbfe1",
+        "android_client_info": {
+          "package_name": "com.ayodhyashansala.lime_and_salt_sellers_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639192348852-lgjq09muah98391c848dddhj7gplvvg4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlRzKRp6mjvkTju_YpRdxCDbKC4dXIANY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639192348852-lgjq09muah98391c848dddhj7gplvvg4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
