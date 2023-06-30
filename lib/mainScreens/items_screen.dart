@@ -1,27 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:lime_and_salt_sellers_app/authentication/auth_screen.dart';
 import 'package:lime_and_salt_sellers_app/global/global.dart';
+import 'package:lime_and_salt_sellers_app/model/items.dart';
 import 'package:lime_and_salt_sellers_app/model/menus.dart';
-import 'package:lime_and_salt_sellers_app/uploadScreens/menus_upload_screen.dart';
-import 'package:lime_and_salt_sellers_app/widgets/info_design.dart';
+import 'package:lime_and_salt_sellers_app/uploadScreens/items_upload_screen.dart';
+import 'package:lime_and_salt_sellers_app/widgets/items_design.dart';
 import 'package:lime_and_salt_sellers_app/widgets/my_drawer.dart';
 import 'package:lime_and_salt_sellers_app/widgets/progress_bar.dart';
 import 'package:lime_and_salt_sellers_app/widgets/text_widget.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
+class ItemsScreen extends StatefulWidget {
+  const ItemsScreen({super.key, required this.model});
+  final Menus? model;
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ItemsScreen> createState() => _ItemsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ItemsScreenState extends State<ItemsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(),
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -39,26 +38,31 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Text(sharedPreferences!.getString("name")!),
         centerTitle: true,
+        automaticallyImplyLeading: true,
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MenuUploadScreen(),
+                  builder: (context) => ItemUploadScreen(
+                    model: widget.model,
+                  ),
                 ),
               );
             },
             icon: const Icon(
-              Icons.post_add,
+              Icons.library_add,
             ),
           )
         ],
       ),
+      drawer: const MyDrawer(),
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-            delegate: TextWidgetHeader(title: "My Menus"),
+            delegate: TextWidgetHeader(
+                title: "My ${widget.model!.menuTitle} 's Items"),
             pinned: true,
           ),
           StreamBuilder(
@@ -66,6 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 .collection("sellers")
                 .doc(sharedPreferences!.getString("uid"))
                 .collection("menus")
+                .doc(widget.model!.menuID)
+                .collection("items")
                 .orderBy("publishedDate", descending: true)
                 .snapshots(),
             builder: (context, snapshot) {
@@ -80,11 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       staggeredTileBuilder: (index) =>
                           const StaggeredTile.fit(1),
                       itemBuilder: (context, index) {
-                        Menus model = Menus.fromJson(
+                        Items model = Items.fromJson(
                           snapshot.data!.docs[index].data()
                               as Map<String, dynamic>,
                         );
-                        return InfoDesignWidget(
+                        return ItemsDesignWidget(
                           model: model,
                           context: context,
                         );

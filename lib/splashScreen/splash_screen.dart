@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lime_and_salt_sellers_app/authentication/auth_screen.dart';
 import 'package:lime_and_salt_sellers_app/mainScreens/home_screen.dart';
-
 import '../global/global.dart';
 
 class MySplashScreen extends StatefulWidget {

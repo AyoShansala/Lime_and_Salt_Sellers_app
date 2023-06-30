@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  //validate login form..............
   formValidation() {
     if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
       //login method calling
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
       showDialog(
         context: context,
         builder: (c) {
-          return ErrorDialog(
+          return const ErrorDialog(
             message: "Pleace write email/password",
           );
         },
@@ -38,11 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  //authenticate login.............
   loginNow() async {
     showDialog(
       context: context,
       builder: (c) {
-        return LoadingDialog(
+        return const LoadingDialog(
           message: "Checking credentials",
         );
       },
@@ -98,13 +100,13 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (c) => AuthScreen(),
+            builder: (c) => const AuthScreen(),
           ),
         );
         showDialog(
             context: context,
             builder: (c) {
-              return ErrorDialog(
+              return const ErrorDialog(
                 message: "No Record Found.",
               );
             });
